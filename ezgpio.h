@@ -40,8 +40,9 @@
 
 int ez_digiwrite_low(int8_t pin);
 int ez_digiwrite_high(int8_t pin);
-int ez_digiwrite(int8_t, int8_t);
-int ez_pinmode(int8_t, int8_t);
-int ez_pinvalid(int8_t);
+int ez_digiwrite(int8_t pin, int8_t value);
+int ez_digiread(int8_t pin);
+int ez_pinmode(int8_t pin, int8_t mode);
+int ez_pinvalid(int8_t pin);
 int ez_init();
 #endif

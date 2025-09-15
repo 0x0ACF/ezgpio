@@ -52,16 +52,16 @@ int ez_digiwrite(int8_t pin, int8_t value) {
     return SUCCESS;
 }
 
-int ez_pinvalid(int8_t pin) {
-    if (gpio_reg == NULL) {
-        return ERR_NOT_INIT;
+int ez_digiread(int8_t pin) {
+    int pinv = ez_pinvalid(pin);
+
+    if (pinv != SUCCESS) {
+        return pinv;
     }
 
-    if (pin < BCM_PIN00 || pin > BCM_PIN27) {
-        return ERR_INVALID_PIN;
-    }
+    int *lev = (void *)gpio_reg + GPLEV0; 
 
-    return SUCCESS;
+    return (*lev >> pin) & HIGH;
 }
 
 int ez_pinmode(int8_t pin, int8_t mode) {
@@ -78,6 +78,18 @@ int ez_pinmode(int8_t pin, int8_t mode) {
     // TODO: Use GPSELn based on pin number
     int *fsel = (void *)gpio_reg + GPFSEL1;
     *fsel |= (mode << 21);
+
+    return SUCCESS;
+}
+
+int ez_pinvalid(int8_t pin) {
+    if (gpio_reg == NULL) {
+        return ERR_NOT_INIT;
+    }
+
+    if (pin < BCM_PIN00 || pin > BCM_PIN27) {
+        return ERR_INVALID_PIN;
+    }
 
     return SUCCESS;
 }
