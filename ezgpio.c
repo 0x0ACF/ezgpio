@@ -3,20 +3,38 @@
 uint32_t *gpio_reg = NULL;
 
 int ez_digiwrite_low(int8_t pin) {
+    int pinv = ez_pinvalid(pin);
+
+    if (pinv != SUCCESS) {
+        return pinv;
+    }
+
     // TODO: Use GPCLRn based on pin number
     int *gpclr = (void *)gpio_reg + GPCLR0;
     *gpclr |= (1 << pin);
+
+    return SUCCESS;
 }
 
 int ez_digiwrite_high(int8_t pin) {
+    int pinv = ez_pinvalid(pin);
+
+    if (pinv != SUCCESS) {
+        return pinv;
+    }
+
     // TODO: Use GPSETn based on pin number
     int *gpset = (void *)gpio_reg + GPSET0;
     *gpset |= (1 << pin);
+
+    return SUCCESS;
 }
 
 int ez_digiwrite(int8_t pin, int8_t value) {
-    if (gpio_reg == NULL) {
-        return ERR_NOT_INIT;
+    int pinv = ez_pinvalid(pin);
+
+    if (pinv != SUCCESS) {
+        return pinv;
     }
 
     if (value != LOW && value != HIGH) {
@@ -34,9 +52,23 @@ int ez_digiwrite(int8_t pin, int8_t value) {
     return SUCCESS;
 }
 
-int ez_pinmode(int8_t pin, int8_t mode) {
+int ez_pinvalid(int8_t pin) {
     if (gpio_reg == NULL) {
         return ERR_NOT_INIT;
+    }
+
+    if (pin < BCM_PIN00 || pin > BCM_PIN27) {
+        return ERR_INVALID_PIN;
+    }
+
+    return SUCCESS;
+}
+
+int ez_pinmode(int8_t pin, int8_t mode) {
+    int pinv = ez_pinvalid(pin);
+
+    if (pinv != SUCCESS) {
+        return pinv;
     }
 
     if (mode != INPUT && mode != OUTPUT) {
@@ -68,3 +100,4 @@ int ez_init() {
 
     return SUCCESS;
 }
+

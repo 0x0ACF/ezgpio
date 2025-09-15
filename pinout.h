@@ -1,3 +1,4 @@
+#define BCM_PIN00 0
 #define BCM_PIN01 1
 #define BCM_PIN02 2
 #define BCM_PIN03 3
@@ -43,6 +44,7 @@
 #define PI_PIN23 BCM_PIN11
 #define PI_PIN24 BCM_PIN08
 #define PI_PIN26 BCM_PIN07
+#define PI_PIN27 BCM_PIN00
 #define PI_PIN28 BCM_PIN01
 #define PI_PIN29 BCM_PIN05
 #define PI_PIN31 BCM_PIN06
