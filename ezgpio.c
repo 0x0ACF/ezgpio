@@ -2,7 +2,7 @@
 
 uint32_t *gpio_reg = NULL;
 
-int ez_digiwrite_low(int8_t pin) {
+int ez_pinwrite_low(int8_t pin) {
     int pinv = ez_pinvalid(pin);
 
     if (pinv != SUCCESS) {
@@ -16,7 +16,7 @@ int ez_digiwrite_low(int8_t pin) {
     return SUCCESS;
 }
 
-int ez_digiwrite_high(int8_t pin) {
+int ez_pinwrite_high(int8_t pin) {
     int pinv = ez_pinvalid(pin);
 
     if (pinv != SUCCESS) {
@@ -30,7 +30,7 @@ int ez_digiwrite_high(int8_t pin) {
     return SUCCESS;
 }
 
-int ez_digiwrite(int8_t pin, int8_t value) {
+int ez_pinwrite(int8_t pin, int8_t value) {
     int pinv = ez_pinvalid(pin);
 
     if (pinv != SUCCESS) {
@@ -42,17 +42,17 @@ int ez_digiwrite(int8_t pin, int8_t value) {
     }
 
     if (value == LOW) {
-        ez_digiwrite_low(pin);
+        ez_pinwrite_low(pin);
     }
 
     if (value == HIGH) {
-        ez_digiwrite_high(pin);
+        ez_pinwrite_high(pin);
     }
 
     return SUCCESS;
 }
 
-int ez_digiread(int8_t pin) {
+int ez_pinread(int8_t pin) {
     int pinv = ez_pinvalid(pin);
 
     if (pinv != SUCCESS) {
