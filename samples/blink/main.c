@@ -16,15 +16,23 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #include "ezgpio.h"
+#include <unistd.h>
+
+#define BLINK_LAPSE 1 // In seconds
 
 int main() {
     ez_init();
 
     ez_pinmode(PI_PIN11, OUTPUT); 
-    ez_pinwrite_high(PI_PIN11);
 
-    if (ez_pinread(PI_PIN11) == HIGH) {
-        puts("PIN11 is HIGH");
+    int state = HIGH;
+
+    for(;;) {
+        ez_pinwrite(PI_PIN11, state);
+
+        state ^= HIGH;
+
+        sleep(BLINK_LAPSE);
     }
 
     return SUCCESS;

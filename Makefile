@@ -1,2 +1,2 @@
-ezgpio: ezgpio.c ezgpio.h pinout.h main.c
-	gcc ezgpio.c main.c -g -o ezgpio
+ezgpio: ezgpio.c ezgpio.h pinout.h example.c
+	gcc ezgpio.c example.c -g -o example
